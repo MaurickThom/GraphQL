@@ -15,8 +15,14 @@ Esta tecnología que engloba dos elementos principales :
 > servidor. Esto se diferencia mucho del modelo Rest donde los recursos a los
 > que voy acceder están definidos por los endpoints que estoy consultando.
 
+*Fuente [*EDTeam*](https://ed.team/blog/introduccion-graphql)*
+
+Una gran ventaja de GraphQL es que no estamos amarrados a lo que el backend nos da al hacer
+el request a un endpoint , ya que un cliente al no querer obtener toda la data solo le *`dice`*
+mediante el query de graphql que datos quiere obtener.
+
 ## **Fuentes y/o Recursos**
 
 - [GraphQL - 1](https://medium.com/@jmz12/que-es-graphql-bf835e55960)
 - [GraphQL - 2](https://platzi.com/blog/introduccion-a-graphql/)
-- [GraphQL -3](https://ed.team/blog/introduccion-graphql)
+- [GraphQL - 3](https://ed.team/blog/introduccion-graphql)

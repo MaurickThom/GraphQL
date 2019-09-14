@@ -10,11 +10,11 @@ const express = require('express'),
 const schema = new GraphQLSchema({
     query:new GraphQLObjectType({
         name:'RootQueryType',
-        fields:{
+        fields:{ // definir los campos de los cuales se compone este objeto
             message:{
                 type:GraphQLString,
-                resolve(){
-                    
+                resolve(){ //esta funcion tiene que indicar como se debe de responder cuando se solicite este mensaje
+                    return 'Hello world'
                 }
             }
         }

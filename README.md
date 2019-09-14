@@ -9,6 +9,8 @@ Esta tecnología que engloba dos elementos principales :
 - El lenguaje de consulta para consumir servicios REST
 - Es un conjunto de tecnologias que permiten la implementación de un servicio web que responda precisamente a las mismas consultas de GraphQL
 
+![GraphQL](https://devopedia.org/images/article/147/8496.1558526064.jpg)
+
 > La idea con GraphQL es que el cliente, ya sea una aplicación Web, móvil o
 > cualquier otro que quiera acceder a nuestros datos, pueda acceder a los
 > datos que realmente necesita usar, para tener consultas más optimas al
@@ -22,6 +24,8 @@ el request a un endpoint , ya que un cliente al no querer obtener toda la data s
 mediante el query de graphql que datos quiere obtener.
 
 ![GraphQL 1](https://miro.medium.com/max/3132/1*hbheCx0tCzyFv9wGDGTVjA.png)
+
+Al querer aprender mas sobre esta tecnología he encontrado muchos post y videos de personas comentando que graphql reemplazará a los servicios REST , y otro diciendo que cada uno tiene un objetivo diferente , y otros en la cual yo me siento identificado es que los dos se pueden complementar muy bien en todos los problemas donde tenga que ver el consumo de servicios REST.
 
 ## **Fuentes y/o Recursos**
 

@@ -1,6 +1,6 @@
 const express = require('express'),
     app = express(),
-    {GraphQLSchema,GraphQLObjectType,GraphQLString} = require('graphql')
+    {GraphQLSchema,GraphQLObjectType,GraphQLString,graphql} = require('graphql')
 
 
 // esta instancia require de una configuracion
@@ -25,10 +25,18 @@ const schema = new GraphQLSchema({
 
 
 app.get('/',(req,res)=>{
-    res.json({
-        ok:true,
-        message:'asdasd'
-    })
+
+    // esta funcion nos permite hacer consultas a nuestro schema
+    // como primer parametro se le pasa el schema que se va a consultar
+    // y como segundo parametro el query o la consulta que se va a realizar
+    graphql(schema,`{
+        message
+    }`).then(response=>res.json(response))
+
+    // res.json({
+    //     ok:true,
+    //     message:'asdasd'
+    // })
 })
 
 // existen dos formas de crear schemas en graphql : con objetos o con build schema 

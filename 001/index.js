@@ -24,19 +24,19 @@ const schema = new GraphQLSchema({
 
 
 
-app.get('/',(req,res)=>{
+app.get('/',async (req,res)=>{
 
     // esta funcion nos permite hacer consultas a nuestro schema
     // como primer parametro se le pasa el schema que se va a consultar
     // y como segundo parametro el query o la consulta que se va a realizar
-    graphql(schema,`{
-        message
-    }`).then(response=>res.json(response))
+    // graphql(schema,`{
+    //     message
+    // }`).then(response=>res.json(response))
 
-    // res.json({
-    //     ok:true,
-    //     message:'asdasd'
-    // })
+    const response = await graphql(schema,`{message}`)
+
+
+    res.json(response)
 })
 
 // existen dos formas de crear schemas en graphql : con objetos o con build schema 

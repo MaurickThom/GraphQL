@@ -40,6 +40,21 @@ query{
 }
 
 # Mutations
+type Message{
+    message:String!
+}
 
+type mutation{
+    addPost(userId:Int!,title:String!,body:String!):Post
+    updatePost(id:Int!,title:String!,body:String!):Post
+    deletePost(id:Int!):Message
+}
 
+mutation{
+    addPost(userId:1,title:"Learning GraphQL",body:"Hello world"){
+        id
+        title
+        comments
+    }
+}
 # Subscription

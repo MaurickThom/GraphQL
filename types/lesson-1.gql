@@ -1,0 +1,19 @@
+type User{
+    id:Int!
+    name:String!
+    email:String!
+}
+type Comment{
+    id:Int!
+    content:String!
+    date:String!
+    author:User!
+}
+
+type Post{
+    id:Int!
+    userID:Int!
+    title:String!
+    body:String!
+    comments:[Comment]!
+}

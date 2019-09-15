@@ -43,3 +43,8 @@ app.get('/',async (req,res)=>{
 
 
 app.listen(8080)
+
+/**
+ * Primero se define un schema
+ * Luego de que tipos seran los campos que podamos solicitar del lado del cliente
+ */

@@ -17,3 +17,29 @@ type Post{
     body:String!
     comments:[Comment]!
 }
+
+# Query
+
+type Query{
+    posts:[Post]!
+    post(id:Int!):Post!
+}
+
+query{
+    post(id:1){
+        id
+        title
+    }
+}
+
+query{
+    posts{
+        id
+        title
+    }
+}
+
+# Mutations
+
+
+# Subscription

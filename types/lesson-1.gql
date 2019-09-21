@@ -57,4 +57,22 @@ mutation{
         comments
     }
 }
+
 # Subscription
+
+type Notification{
+    id:Int!
+    type:String!
+
+}
+
+type Subscription{
+    notificationOf(type:String!):Notification
+}
+
+subscription{
+    notificationOf(type:"answer"){
+        id
+        type
+    }
+}

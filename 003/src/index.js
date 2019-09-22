@@ -1,6 +1,11 @@
 // Mocking de datos : Esto es una tecnica la cual consiste
 // en hacer pasar datos como si fueran los verdaderos para realizar el testeo de la app
 
+/**
+ * Input types : Nos permiten definir tipos o estructuras
+ * para argumentos que se vayan a recibir
+ */
+
 const express = require('express'),
     app = express(),
     {buildSchema} = require('graphql'),
@@ -10,11 +15,14 @@ let courses = require('./courses')
 
 app.set('port',process.env.PORT || 8080)
 
-
 const schema = buildSchema(`
     type Course{
         id:ID!
         title:String!
+        views:Int
+    }
+    input CourseInput{
+        title:String
         views:Int
     }
     type Message{
@@ -26,7 +34,7 @@ const schema = buildSchema(`
     }
     type Mutation {
         addCourse(title:String!,views:Int):Course!
-        updateCourse(id:ID!,title:String,views:Int):Course!
+        updateCourse(id:ID!,courseInput:CourseInput):Course!
         deleteCourse(id:ID!):Message
     }
 `)
@@ -57,21 +65,20 @@ const rootV = {
         courses.push(course)
         return course
     },
-    updateCourse({id,title,views}){
+    updateCourse({id,courseInput}){
         const course = courses.find(course=>course.id===id)
         if(!course) return {
             err:{
                 message:`El curso con el id ${id} no existe`
             }
         }
+        const {title,views} = courseInput
         if(!title && !views ) return course
-        !title ?
-            course.views = views : course.title = title
-        courses = courses.map(cours=>{
-            if(cours.id===id)
-                return course
-            return cours
-        })
+        !title ? course.views = views : course.title = title
+        courses = courses.map(cours=>(
+            cours.id===id ?
+                course : cours
+        ))
         return course
     },
     deleteCourse({id}){

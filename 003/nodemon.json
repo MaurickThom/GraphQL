@@ -1,0 +1,13 @@
+{
+    "ignore":[
+        "node_modules",
+        ".git",
+        "**/*.test.js",
+        "**/*.spec.js"
+    ],
+    "watch":[
+        "src"
+    ],
+    "ext":"js",
+    "exec":"npm run dev"
+}

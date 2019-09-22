@@ -4,7 +4,7 @@
 const express = require('express'),
     app = express(),
     {buildSchema} = require('graphql'),
-    graphqlHtpp = require('express-graphql'),
+    graphqlHttp = require('express-graphql'),
     courses = require('./courses')
 
 app.set('port',process.env.PORT || 8080)
@@ -20,6 +20,13 @@ const schema = buildSchema(`
         getAllCourses:[Course!]!
         getCourseById(id:ID!):Course
     }
+    type Message{
+        message:String!
+    }
+    Type Mutation{
+        addCourse(title:String!,views:Int):Course!
+        deleteCourse(id:ID!):Message
+    }
 `)
 const rootV = {
     getAllCourses(){
@@ -27,6 +34,18 @@ const rootV = {
     },
     getCourseById({ id }){
         return courses.find(course=>course.id===id)
+    },
+    addCourse({title,views}){
+        let isNaN = !Number(courses.slice(-1)[0])
+        let id =  isNaN ?
+            "1" : String(isNaN++)
+        const course = {
+            id,
+            title,
+            views
+        }
+        courses.push(course)
+        return course
     }
 }
 
@@ -35,7 +54,7 @@ const rootV = {
  * Este middleware lo que hará es montar un `servidor` en nuestro propio 
  * servidor
  */
-app.use('/graphqlapi',graphqlHtpp({
+app.use('/graphqlapi',graphqlHttp({
     schema,
     rootValue:{ // dentro de este objeto tiene que ir lo resolvers
                 // los resolvers deben tener el mismo nombre

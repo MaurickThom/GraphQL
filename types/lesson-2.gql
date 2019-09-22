@@ -1,0 +1,21 @@
+type Course{
+    id:ID!
+    name:String!
+}
+interface Profile{
+    id:ID!
+    name:String!
+    email:String!
+    age:Int!
+}
+type Student implements Profile{
+    id:ID!
+    name:String!
+    email:String!
+    age:Int!
+    courses:[Course]!
+}
+
+
+# UNION: permite agregar diferentes tipos en los cuales se 
+# puede realizar una busqueda siempre de los tipos agrupados

@@ -6,6 +6,10 @@
  * para argumentos que se vayan a recibir
  */
 
+/**
+ *  start = limit * page - limit
+ */
+
 const express = require('express'),
     app = express(),
     {buildSchema} = require('graphql'),
@@ -29,7 +33,7 @@ const schema = buildSchema(`
         content:String!
     }
     type Query{
-        getAllCourses:[Course]
+        getAllCourses(page:Int,limit:Int):[Course]
         getCourseById(id:ID!):Course
     }
     type Mutation {
@@ -39,11 +43,17 @@ const schema = buildSchema(`
     }
 `)
 const rootV = {
-    getAllCourses(){
+    getAllCourses({page,limit}){
+        
         if(!courses.length) return {
             message:'La lista de curso está vacia'
         }
-        return courses
+        if(!limit && !page)
+            return courses
+        limit = limit || courses.length
+        page = page || 1
+        const start = limit*page-limit
+        return courses.slice(start,start+limit)
     },
     getCourseById({ id }){
         const course = courses.find(course=>course.id===id)

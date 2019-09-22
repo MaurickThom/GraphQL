@@ -9,12 +9,6 @@ const express = require('express'),
 
 app.set('port',process.env.PORT || 8080)
 
-// middleware
-/**
- * Este middleware lo que hará es montar un `servidor` en nuestro propio 
- * servidor
- */
-
 
 const schema = buildSchema(`
     type Course{
@@ -24,15 +18,23 @@ const schema = buildSchema(`
     }
     type Query{
         getAllCourses:[Course!]!
-        getCourseByID(id:Int!):Course!
+        getCourseById(id:ID!):Course
     }
 `)
 const rootV = {
-    getAllCoures(){
+    getAllCourses(){
         return courses
+    },
+    getCourseById({ id }){
+        return courses.find(course=>course.id===id)
     }
 }
 
+// middleware
+/**
+ * Este middleware lo que hará es montar un `servidor` en nuestro propio 
+ * servidor
+ */
 app.use('/graphqlapi',graphqlHtpp({
     schema,
     rootValue:{ // dentro de este objeto tiene que ir lo resolvers
@@ -41,7 +43,7 @@ app.use('/graphqlapi',graphqlHtpp({
         ...rootV
     },
     graphiql:true // este es una interfaz grafica que nos permitira
-                    // realizar consultas grapql a nuestro servidor
+                    // realizar consultas graphql a nuestro servidor
 }))
 
 app.listen(app.get('port'),err=>{

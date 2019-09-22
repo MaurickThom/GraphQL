@@ -59,15 +59,14 @@ const rootV = {
     },
     updateCourse({id,title,views}){
         const course = courses.find(course=>course.id===id)
-        console.log(course,' hola');
         if(!course) return {
             err:{
                 message:`El curso con el id ${id} no existe`
             }
         }
         if(!title && !views ) return course
-        if(!title) course.views = views
-        if(!views) course.title = title
+        !title ?
+            course.views = views : course.title = title
         courses = courses.map(cours=>{
             if(cours.id===id)
                 return course
@@ -76,7 +75,13 @@ const rootV = {
         return course
     },
     deleteCourse({id}){
-
+        const course = courses.find(course=>course.id===id)
+        if(!course) return {
+            err:{
+                message:`El curso con el id ${id} no existe`
+            }
+        }
+        courses = courses.map(cours=>cours.id!==id)
     }
 }
 

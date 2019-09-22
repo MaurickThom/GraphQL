@@ -54,7 +54,7 @@ const rootV = {
  * Este middleware lo que hará es montar un `servidor` en nuestro propio 
  * servidor
  */
-app.use('/graphqlapi',graphqlHttp({
+app.use('/graphql-api',graphqlHttp({
     schema,
     rootValue:{ // dentro de este objeto tiene que ir lo resolvers
                 // los resolvers deben tener el mismo nombre

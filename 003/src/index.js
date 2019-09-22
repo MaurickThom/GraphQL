@@ -4,8 +4,9 @@
 const express = require('express'),
     app = express(),
     {buildSchema} = require('graphql'),
-    graphqlHttp = require('express-graphql'),
-    courses = require('./courses')
+    graphqlHttp = require('express-graphql')
+
+let courses = require('./courses')
 
 app.set('port',process.env.PORT || 8080)
 
@@ -16,20 +17,34 @@ const schema = buildSchema(`
         title:String!
         views:Int
     }
+    type Message{
+        content:String!
+    }
     type Query{
-        getAllCourses:[Course!]!
+        getAllCourses:[Course]
         getCourseById(id:ID!):Course
     }
     type Mutation {
         addCourse(title:String!,views:Int):Course!
+        updateCourse(id:ID!,title:String,views:Int):Course!
+        deleteCourse(id:ID!):Message
     }
 `)
 const rootV = {
     getAllCourses(){
+        if(!courses.length) return {
+            message:'La lista de curso está vacia'
+        }
         return courses
     },
     getCourseById({ id }){
-        return courses.find(course=>course.id===id)
+        const course = courses.find(course=>course.id===id)
+        if(!course) return {
+            err:{
+                message:`El curso con el id ${id} no existe`
+            }
+        }
+        return course
     },
     addCourse({title,views}){
         let isNotNaN = Number(courses.slice(-1)[0].id)
@@ -41,6 +56,27 @@ const rootV = {
         }
         courses.push(course)
         return course
+    },
+    updateCourse({id,title,views}){
+        const course = courses.find(course=>course.id===id)
+        console.log(course,' hola');
+        if(!course) return {
+            err:{
+                message:`El curso con el id ${id} no existe`
+            }
+        }
+        if(!title && !views ) return course
+        if(!title) course.views = views
+        if(!views) course.title = title
+        courses = courses.map(cours=>{
+            if(cours.id===id)
+                return course
+            return cours
+        })
+        return course
+    },
+    deleteCourse({id}){
+
     }
 }
 

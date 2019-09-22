@@ -35,7 +35,7 @@ const schema = buildSchema(`
     type Mutation {
         addCourse(title:String!,views:Int):Course!
         updateCourse(id:ID!,courseInput:CourseInput):Course!
-        deleteCourse(id:ID!):Message
+        deleteCourse(id:ID!):String
     }
 `)
 const rootV = {
@@ -89,6 +89,7 @@ const rootV = {
             }
         }
         courses = courses.map(cours=>cours.id!==id)
+        return "Eliminado"
     }
 }
 

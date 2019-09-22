@@ -20,12 +20,8 @@ const schema = buildSchema(`
         getAllCourses:[Course!]!
         getCourseById(id:ID!):Course
     }
-    type Message{
-        message:String!
-    }
-    Type Mutation{
+    type Mutation {
         addCourse(title:String!,views:Int):Course!
-        deleteCourse(id:ID!):Message
     }
 `)
 const rootV = {
@@ -36,11 +32,10 @@ const rootV = {
         return courses.find(course=>course.id===id)
     },
     addCourse({title,views}){
-        let isNaN = !Number(courses.slice(-1)[0])
-        let id =  isNaN ?
-            "1" : String(isNaN++)
+        let isNotNaN = Number(courses.slice(-1)[0].id)
+        const lastID =  isNotNaN ? String(++isNotNaN):"1"
         const course = {
-            id,
+            id:lastID,
             title,
             views
         }

@@ -34,4 +34,4 @@ Al querer aprender mas sobre esta tecnología he encontrado muchos post y videos
 - [GraphQL - 1](https://medium.com/@jmz12/que-es-graphql-bf835e55960)
 - [GraphQL - 2](https://platzi.com/blog/introduccion-a-graphql/)
 - [GraphQL - 3](https://ed.team/blog/introduccion-graphql)
-- [See 12 factor app methodology]( See 12 factor app methodology)
+- [See 12 factor app methodology](https://12factor.net/es/)

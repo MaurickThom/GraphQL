@@ -14,7 +14,7 @@ const {
 } = ENV;
 
 // Esto es solo temporal
-const MONGO_URL = ``;
+const MONGO_URL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@passport-jwt-hmj2y.mongodb.net/test?retryWrites=true&w=majority`;
 
 class MongoLib {
     constructor() {
@@ -24,7 +24,7 @@ class MongoLib {
     connect() {
         return new Promise((resolve, reject) => {
             MongoClient.connect(
-                MONGO_URI, {
+                MONGO_URL, {
                     useNewUrlParser: true,
                     poolSize: 5,
                     useUnifiedTopology: true

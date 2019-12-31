@@ -45,11 +45,11 @@ class MongoLib {
             })
             .then(result => result.insertedId);
     }
-    getAll(collection) {
+    getAll(collection,query) {
         return this.client.then(db => {
             return db
                 .collection(collection)
-                .find()
+                .find(query)
                 .toArray();
         });
     }

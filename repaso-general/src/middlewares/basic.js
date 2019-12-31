@@ -10,9 +10,14 @@ passport.use(
         const mongoDB = new MongoLib()
         try{
             const [user] = await mongoDB.getAll('users',{username})
-
+            if(!user){
+                return callback(boom.unauthorized(),false)
+            }
+            if(!(await matchPassword(password,user.password)))
+                return callback(boom.unauthorized(),false)
+            return callback(null,user)
         }catch(err){
-            
+            return callback(err)
         }
     })
 )

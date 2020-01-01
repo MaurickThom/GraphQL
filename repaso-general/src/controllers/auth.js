@@ -13,21 +13,25 @@ router.post('/token',async (req,res,next)=>{
                 return next(boom.unauthorized())
             req.login(user,{
                 session:false
-            },
-            async error =>{
+            },async error =>{
                 if(error) return next(error)
                 const payload = {
                     username:user.username,
                     email:user.email
                 }
-
                 const token = jwt.sign(payload,AUTH_JWT_SECRET,{
                     expiresIn:'15m'
+                })}
+                return res.status(200).json({
+                    access_token:token
                 })
-            }
             )
-        }catch(err){
-
+        }catch(error){
+            next(error)
         }
     })(req,res,next)
 })
+
+module.exports = {
+    router
+}

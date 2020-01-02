@@ -16,7 +16,7 @@ passport.use(
             const mongo = new MongoLib()
             try{
                 const [user] = await mongo.getAll('users',{
-                    username:tokenPayload.sub
+                    username:tokenPayload.username
                 })
                 if(!user) return callback(
                     boom.unauthorized(),false

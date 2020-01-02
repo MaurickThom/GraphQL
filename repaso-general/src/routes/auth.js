@@ -3,8 +3,11 @@ const express = require('express'),
     boom = require('@hapi/boom'),
     jwt = require('jsonwebtoken'),
     router = express.Router(),
-    { ENV } = require('./../config/config'),
+    { ENV } = require('../config/config'),
     { AUTH_JWT_SECRET } = ENV
+
+require('./../middlewares/authentication')
+require('./../middlewares/basic')
 
 router.post('/token',async (req,res,next)=>{
     passport.authenticate( AUTH_JWT_SECRET ,(err,user)=>{
@@ -21,11 +24,12 @@ router.post('/token',async (req,res,next)=>{
                 }
                 const token = jwt.sign(payload,AUTH_JWT_SECRET,{
                     expiresIn:'15m'
-                })}
+                })
+                
                 return res.status(200).json({
                     access_token:token
                 })
-            )
+            })
         }catch(error){
             next(error)
         }

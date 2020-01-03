@@ -10,16 +10,14 @@ const { ENV } = require('./config/config'),
     { looger } = require('./utils/logger'),
     helmet = require('helmet'),
     logger = require('./utils/logger'),
-    { router } = require('./routes/auth')
+    { router } = require('./routes/auth'),
+    cors = require('cors')
 
-
-
+app.use(cors())
 app.use(helmet())
 app.use(express.json())
-app.set('port',NODE_PORT)
-
-
 app.use('/api/auth',router)
 
+app.set('port',NODE_PORT)
 
 app.listen(app.get('port'),()=>console.log(`Listening on port ${app.get('port')}`))

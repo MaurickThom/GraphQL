@@ -10,7 +10,9 @@ require('./../middlewares/authentication')
 require('./../middlewares/basic')
 
 router.post('/token',async (req,res,next)=>{
-    passport.authenticate( AUTH_JWT_SECRET ,(err,user)=>{
+    // http://www.passportjs.org/docs/basic-digest/
+    passport.authenticate('basic',(err,user)=>{
+    console.log("TCL: user", user)
         try{
             if(err || !user)
                 return next(boom.unauthorized())

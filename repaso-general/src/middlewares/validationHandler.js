@@ -1,4 +1,4 @@
-exports.validate = (data,schema)=>{
+const validate = (data,schema)=>{
     const { error } = schema.validate(data)
     return error 
 }

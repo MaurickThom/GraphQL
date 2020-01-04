@@ -45,7 +45,7 @@ class MongoLib {
             })
             .then(result => result.insertedId);
     }
-    getAll(collection,query) {
+    get(collection,query) {
         return this.client.then(db => {
             return db
                 .collection(collection)

@@ -6,6 +6,6 @@ const validate = (data,schema)=>{
 exports.validationHandler = (schema,check='body')=>{
     return (req,res,next)=>{
         const error = validate(req[check],schema)
-        err ? res.status(401).json({err}) : next()
+        error ? res.status(401).json({error}) : next()
     }
 }

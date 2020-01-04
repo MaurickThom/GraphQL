@@ -9,8 +9,8 @@ boom = require('@hapi/boom'),
 const mongo = new MongoLib() 
 
 passport.use(new LocalStrategy({
-    usernameField:username,
-    passwordField:password
+    usernameField:"username",
+    passwordField:"password"
 },async(username,password,done)=>{
     try{
         const [user] = await mongo.get('users',{username})

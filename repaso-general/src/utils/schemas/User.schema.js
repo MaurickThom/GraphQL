@@ -14,14 +14,13 @@ const CreateUserSchema = Joi.object({
         .max(10)
         .required(),
     password:Joi.string()
-        .pattern(regex_password)
         .required(),
     firstname:Joi.string()
-        .min(5)
+        .min(4)
         .max(10)
         .required(),
     lastname : Joi.string()
-        .min(5)
+        .min(4)
         .max(10)
         .required()
 })
@@ -33,13 +32,12 @@ const UpdateUserSchema = Joi.object({
     username:Joi.string()
         .min(3)
         .max(10),
-    password:Joi.string()
-        .pattern(regex_password),
+    password:Joi.string(),
     firstname:Joi.string()
-        .min(5)
+        .min(4)
         .max(10),
     lastname : Joi.string()
-        .min(5)
+        .min(4)
         .max(10)
 })
 

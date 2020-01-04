@@ -10,15 +10,23 @@ const { ENV :{ NODE_PORT}} = require('./config/config'),
     helmet = require('helmet'),
     logger = require('./utils/logger'),
     cors = require('cors'),
-    passport = require('passport')
+    passport = require('passport'),
+    RouterAuth = require('./routes/auth')
 
-// require('./config/passport')
 
+app.set('port',NODE_PORT)
+
+const { mongo }= require('./config/passport')
+app.use((req,res,next)=>{
+    req.mongo = mongo
+    next()
+})
 app.use(cors())
 app.use(helmet())
 app.use(express.json())
 app.use(passport.initialize())
-app.set('port',NODE_PORT)
 
+
+app.use('/api',RouterAuth)
 
 app.listen(app.get('port'),()=>console.log(`Listening on port ${app.get('port')}`))

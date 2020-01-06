@@ -15,6 +15,8 @@ const express = require('express'),
     {buildSchema} = require('graphql'),
     graphqlHttp = require('express-graphql')
 
+require('dotenv').config()
+
 let courses = require('./courses')
 
 app.set('port',process.env.PORT || 8080)

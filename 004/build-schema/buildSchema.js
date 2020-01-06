@@ -6,13 +6,13 @@ const b_schema = buildSchema(`
     }
 `)
 
-const _root = {
+const b_root = {
     hello:()=>'Hello world'
 }
 
 module.exports = {
     b_schema,
-    _root
+    b_root
 }
 
 /**

@@ -27,7 +27,8 @@ mediante el query de graphql que datos quiere obtener.
 
 Al querer aprender mas sobre esta tecnología he encontrado muchos post y videos de personas comentando que graphql reemplazará a los servicios REST , y otro diciendo que cada uno tiene un objetivo diferente , y otros en la cual yo me siento identificado es que los dos se pueden complementar muy bien en todos los problemas donde tenga que ver el consumo de servicios REST.
 
-![alt](img/Screenshot&#32;from&#32;2019-09-22&#32;00-03-35.png)
+> Mi nueva terminal :3 <3
+![alt](img/terminal.png)
 
 ## **Fuentes y/o Recursos**
 

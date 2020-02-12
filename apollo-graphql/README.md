@@ -5,6 +5,6 @@ Simplifica el desarrollo de aplicaciones combinando las base de datos , los serv
 Esta compuesto exclusivamente por javascript que provee herramientas para crear un servidor de GraphQL, un servidor standalone y todos los clientes que usen algun tipo de framework para el frontend
 
 
-## **Refencias**
+## **Referencias**
 
 [Apollo server](https://www.apollographql.com/docs/apollo-server/)

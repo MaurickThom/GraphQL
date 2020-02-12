@@ -1,0 +1,21 @@
+{
+  "name": "apollo-graphql",
+  "version": "1.0.0",
+  "description": "Simplifica el desarrollo de aplicaciones combinando las base de datos , los servicios REST y los microservicios en un solo gráfico de datos que puede se consultar con graphql.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.10.0",
+    "graphql": "^14.6.0",
+    "graphql-tools": "^4.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

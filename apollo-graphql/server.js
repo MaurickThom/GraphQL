@@ -25,7 +25,17 @@ const typeDefs = `
 // definicion de schema
 const schema = makeExecutableSchema({
     typeDefs,
-    resolvers: {}
+    resolvers: { // este objeto nos dirá como tiene que actuar los queries y las mutaciones
+        Query:{
+            getAllCourses(){ // cada función dentro de query necesita 4 argumentos
+            /**
+             * primero -> obj : Está el objeto que contiene el resultado retornado por el resolver del padre
+                *       
+             */
+
+            }
+        }        
+    }
 })
 
 // para correr el servidor , no se utilizará express

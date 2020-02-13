@@ -4,6 +4,8 @@ const express = require('express'),
 const { graphqlExpress,graphiqlExpress } = require('graphql-server-express')
 const { makeExecutableSchema } = require('graphql-tools')
 
+const { merge } = require('lodash')
+
 mongoose.connect('mongodb://localhost/graphql_db_course',{
     useNewUrlParser:true,
     useUnifiedTopology:true
@@ -25,13 +27,16 @@ const typeDefs = `
     }
 `
 
+// Types Definitions
 const { courseTypes } = require('./types/course.type')
+
+// Resolvers
+const { courseResolver } = require('./resolvers/course.resolver')
+const serverResolver = {}
 
 const schema = makeExecutableSchema({
     typeDefs:[typeDefs,courseTypes],
-    resolvers:{
-
-    }
+    resolvers: merge(serverResolver,courseResolver)
 })
 
 app.use(express.json())

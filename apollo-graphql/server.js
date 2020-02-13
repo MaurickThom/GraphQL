@@ -30,7 +30,12 @@ const schema = makeExecutableSchema({
             getAllCourses(){ // cada función dentro de query necesita 4 argumentos
             /**
              * primero -> obj : Está el objeto que contiene el resultado retornado por el resolver del padre
-                *       
+                * rootValue : resolver del padre
+                    * si quisiera crear un resolver para title del tipo Course , el rootValue sería todos los 
+                    queries que contengan el tipo donde se encuentra la propiedad que corresponde al resolver (title)
+             *
+             * 
+             * 
              */
 
             }

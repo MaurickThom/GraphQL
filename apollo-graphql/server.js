@@ -27,6 +27,8 @@ const typeDefs = `
     }
     type Mutation {
         addCourse(title:String!,views:Int):Course!
+        updateCourse(id:ID!,courseInput:CourseInput):Course!
+        deleteCourse(id:ID!):String
     }
 `
 // definicion de schema
@@ -53,10 +55,19 @@ const schema = makeExecutableSchema({
                 page = page || 1
                 const start = limit*(page - 1)
                 return courses.slice(start,start+limit)
+            },
+            getCourseById(obj,{id}){
+                const course = courses.find(course=>course.id === id)
+                if(!course) return {
+                    err:{
+                        message:`El curso con el id ${id} no existe`
+                    }
+                }
+                return course
             }
         },
         Mutation:{
-            addCourse({title,views}){
+            addCourse(obj,{title,views}){
                 let isNotNaN = Number(courses.slice(-1)[0].id)
                 const lastID =  isNotNaN ? String(++isNotNaN):"1"
                 const course = {
@@ -66,6 +77,32 @@ const schema = makeExecutableSchema({
                 }
                 courses.push(course)
                 return course
+            },
+            updateCourse({id,courseInput}){
+                const course = courses.find(course=>course.id===id)
+                if(!course) return {
+                    err:{
+                        message:`El curso con el id ${id} no existe`
+                    }
+                }
+                const {title,views} = courseInput
+                if(!title && !views ) return course
+                !title ? course.views = views : course.title = title
+                courses = courses.map(cours=>(
+                    cours.id===id ?
+                        course : cours
+                ))
+                return course
+            },
+            deleteCourse({id}){
+                const course = courses.find(course=>course.id===id)
+                if(!course) return {
+                    err:{
+                        message:`El curso con el id ${id} no existe`
+                    }
+                }
+                courses = courses.map(cours=>cours.id!==id)
+                return "Eliminado"
             }
         }      
     }
@@ -79,3 +116,16 @@ const server = new ApolloServer({
 // cuando el servidor este escuchando los request lanzará una promesa
 // promesa que en cuando se resulva nos devolverá un objeto
 server.listen().then(({url})=>console.log(`Servidor iniciado en ${url}`))
+
+
+/**
+ * 
+ * mutation{
+ *  addCourse(title:"asdasd",views:199){
+ *  title
+ *  views
+ *  id
+ * }
+ * }
+ * 
+ */

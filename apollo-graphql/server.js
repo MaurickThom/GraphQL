@@ -78,7 +78,7 @@ const schema = makeExecutableSchema({
                 courses.push(course)
                 return course
             },
-            updateCourse({id,courseInput}){
+            updateCourse(obj,{id,courseInput}){
                 const course = courses.find(course=>course.id===id)
                 if(!course) return {
                     err:{
@@ -94,7 +94,7 @@ const schema = makeExecutableSchema({
                 ))
                 return course
             },
-            deleteCourse({id}){
+            deleteCourse(obj,{id}){
                 const course = courses.find(course=>course.id===id)
                 if(!course) return {
                     err:{

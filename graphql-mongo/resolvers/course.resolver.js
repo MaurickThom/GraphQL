@@ -6,7 +6,6 @@ const courseResolver = {
         async getAllCourses(obj,{page,limit}){
             if(!limit && !page)
                 return await CourseModel.find()
-            limit = limit || courses.length
             page = page || 1
             const start = limit*(page - 1)
             return await CourseModel.find()
@@ -40,7 +39,7 @@ const courseResolver = {
         },
         async deleteCourse(obj,{id}){
             const deletedCourse = await CourseModel.findByIdAndRemove(id)
-            return 'Deleted Course'
+            return 'Course removed'
         }
     }      
 }

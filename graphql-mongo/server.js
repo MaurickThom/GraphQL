@@ -25,8 +25,10 @@ const typeDefs = `
     }
 `
 
+const { courseTypes } = require('./types/course.type')
+
 const schema = makeExecutableSchema({
-    typeDefs,
+    typeDefs:[typeDefs,courseTypes],
     resolvers:{
 
     }

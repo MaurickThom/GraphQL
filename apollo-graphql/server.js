@@ -18,7 +18,7 @@ const typeDefs = `
         views:Int
     }
     type Query{
-        getAllCourses(page:Int,limit:Int):[Course]
+        getAllCourses(page:Int,limit:Int = 1):[Course]
         getCourseById(id:ID!):Course
     }
 `
@@ -27,17 +27,23 @@ const schema = makeExecutableSchema({
     typeDefs,
     resolvers: { // este objeto nos dirá como tiene que actuar los queries y las mutaciones
         Query:{
-            getAllCourses(){ // cada función dentro de query necesita 4 argumentos
+            getAllCourses(obj,{page,limit}){ // cada función dentro de query necesita 4 argumentos
             /**
              * primero -> obj : Está el objeto que contiene el resultado retornado por el resolver del padre
                 * rootValue : resolver del padre
                     * si quisiera crear un resolver para title del tipo Course , el rootValue serían todos los 
-                    queries que contengan el tipo donde se encuentra la propiedad que corresponde al resolver (title) , entonces los primeros providers en ejecutarse seria los rootValue
-             * 
-             * 
-             * 
+                    queries que contengan el tipo donde se encuentra la propiedad que corresponde al resolver (title) , entonces los primeros providers en ejecutarse seria los del rootValue
+             *
              */
-
+                if(!courses.length) return {
+                    message:'La lista de curso está vacia'
+                }
+                if(!limit && !page)
+                    return courses
+                limit = limit || courses.length
+                page = page || 1
+                const start = limit*page-limit
+                return courses.slice(start,start+limit)
             }
         }        
     }

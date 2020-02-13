@@ -17,9 +17,16 @@ const typeDefs = `
         title:String!
         views:Int
     }
+    input CourseInput{
+        title:String
+        views:Int
+    }
     type Query{
-        getAllCourses(page:Int,limit:Int = 1):[Course]
+        getAllCourses(page:Int,limit:Int):[Course]
         getCourseById(id:ID!):Course
+    }
+    type Mutation {
+        addCourse(title:String!,views:Int):Course!
     }
 `
 // definicion de schema
@@ -33,7 +40,9 @@ const schema = makeExecutableSchema({
                 * rootValue : resolver del padre
                     * si quisiera crear un resolver para title del tipo Course , el rootValue serían todos los 
                     queries que contengan el tipo donde se encuentra la propiedad que corresponde al resolver (title) , entonces los primeros providers en ejecutarse seria los del rootValue
-             *
+             * segundo args {} -> contiene los argumentos del query
+             * context -> esto se definira para todos los resolvers es decir un ambiente en la cual todos los resolver
+                            comiencen con un contexto en comun
              */
                 if(!courses.length) return {
                     message:'La lista de curso está vacia'
@@ -42,10 +51,23 @@ const schema = makeExecutableSchema({
                     return courses
                 limit = limit || courses.length
                 page = page || 1
-                const start = limit*page-limit
+                const start = limit*(page - 1)
                 return courses.slice(start,start+limit)
             }
-        }        
+        },
+        Mutation:{
+            addCourse({title,views}){
+                let isNotNaN = Number(courses.slice(-1)[0].id)
+                const lastID =  isNotNaN ? String(++isNotNaN):"1"
+                const course = {
+                    id:lastID,
+                    title,
+                    views
+                }
+                courses.push(course)
+                return course
+            }
+        }      
     }
 })
 

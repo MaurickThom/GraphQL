@@ -29,14 +29,16 @@ const typeDefs = `
 
 // Types Definitions
 const { courseTypes } = require('./types/course.type')
+const { userTypes } = require('./types/user.types')
 
 // Resolvers
 const { courseResolver } = require('./resolvers/course.resolver')
+const { userResolver } = require('./resolvers/user.resolver')
 const serverResolver = {}
 
 const schema = makeExecutableSchema({
-    typeDefs:[typeDefs,courseTypes],
-    resolvers: merge(serverResolver,courseResolver)
+    typeDefs:[typeDefs,courseTypes,userTypes],
+    resolvers: merge(serverResolver,courseResolver,userResolver)
 })
 
 app.use(express.json())

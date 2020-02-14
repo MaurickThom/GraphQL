@@ -1,5 +1,5 @@
 const CourseModel = require('./../models/course')
-
+const { Schema:{Types:{ObjectId}} } = require('mongoose')
 
 const courseResolver = {
     Query:{
@@ -41,17 +41,25 @@ const courseResolver = {
             const deletedCourse = await CourseModel.findByIdAndRemove(id)
             return 'Course removed'
         },
-        async addUserToTheCourseList(obj,{idCourse,idUser}){
-            const updateCourse = await CourseModel.update({
-                id:idCourse
+        async addUserToTheCourseList(obj,{input}){
+            console.log("TCL: addUserToTheCourseList -> idUser", input.idUser)
+            console.log("TCL: addUserToTheCourseList -> idCourse", input.idCourse)
+            
+            const updateCourse = await CourseModel.updateOne({
+                _id:input.idCourse
             },{
-                $push :{ users: idUser}
+                $push :{ users: input.idUser}
             })
-            return updateCourse
+            console.log("TCL: addUserToTheCourseList -> updateCourse", updateCourse)
+            return await CourseModel.findById(input.idCourse) 
         }
     }      
 }
 
+
+/**
+ db.courses.update({_id:ObjectId("5e4620ff5412ee2e44545100")},{"$set":{"users":[]}})
+ */
 
 
 module.exports = {

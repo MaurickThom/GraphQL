@@ -3,6 +3,7 @@ const courseTypes = `
         id:ID!
         title:String!
         views:Int
+        users:[ID]
     }
     input CourseInput{
         title:String

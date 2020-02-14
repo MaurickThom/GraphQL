@@ -1,5 +1,8 @@
 const { Schema, model } = require('mongoose')
 const { encryptPassword,matchPassword } = require('./../utils/bcrypt')
+const JWT = require('jsonwebtoken')
+require('dotenv').config()
+
 
 
 const UserSchema = new Schema({
@@ -44,6 +47,10 @@ UserSchema.statics.authenticate = async function ({email,password}){
             }
         const result = await matchPassword(password,user.password)
 
+        // jwt
+
+        user.token = JWT.sign({ id:user.id },process.env.SECRET_KEY)
+        await user.save()
         return user
 
     }catch(err){

@@ -1,5 +1,5 @@
 const UserModel = require('./../models/user')
-
+const CourseModel = require('./course.resolver')
 const userResolver = {
     Query:{
         async getAllUsers(obj){
@@ -32,6 +32,11 @@ const userResolver = {
                 }
             }
             
+        }
+    },
+    User:{
+        async courses(parentUser){
+            return CourseModel.find({user:parentUser.id})
         }
     }
 }

@@ -34,7 +34,8 @@ const courseResolver = {
             const userObj = await UserModel.findById(user)
             const newCourse = new CourseModel(course)
             await newCourse.save()
-            await userObj.courses.push(newCourse)
+            userObj.courses.push(newCourse)
+            await userObj.save()
             return newCourse
         },
         async updateCourse(obj,{id,courseInput}){

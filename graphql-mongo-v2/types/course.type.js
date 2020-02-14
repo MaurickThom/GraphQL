@@ -3,6 +3,7 @@ const courseTypes = `
         id:ID!
         title:String!
         views:Int
+        user:User
     }
     input CourseInput{
         title:String
@@ -17,7 +18,7 @@ const courseTypes = `
         idUser:ID!
     }
     extend type Mutation {
-        addCourse(title:String!,views:Int):Course!
+        addCourse(title:String!,views:Int,user_id:ID!):Course!
         updateCourse(id:ID!,courseInput:CourseInput):Course!
         deleteCourse(id:ID!):String
     }

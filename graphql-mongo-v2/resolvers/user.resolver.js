@@ -3,11 +3,11 @@ const UserModel = require('./../models/user')
 const userResolver = {
     Query:{
         async getAllUsers(obj){
-            const users = await UserModel.find()
+            const users = await UserModel.find().populate('courses')
             return users
         },
         async getUserById(obj,{id}){
-            const user = await UserModel.findById(id)
+            const user = await UserModel.findById(id).populate('courses')
             return user
         }
     },

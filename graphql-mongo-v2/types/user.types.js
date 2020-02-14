@@ -4,6 +4,7 @@ const userTypes = `
         email:String!
         password:String!
         token:String!
+        courses:[Course]
     }
 
     extend type Query{

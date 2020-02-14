@@ -17,7 +17,11 @@ const { Schema } = mongoose
 
 const courseSchema = new Schema({
     title:String,
-    views:Number
+    views:Number,
+    user:{
+        type:Schema.Types.ObjectId,
+        ref:"User"
+    }
 })
 
 module.exports = mongoose.model('Course',courseSchema)

@@ -1,5 +1,8 @@
 const UserModel = require('./../models/user')
 const CourseModel = require('./course.resolver')
+
+const { encryptPassword,matchPassword } = require('./../utils/bcrypt')
+
 const userResolver = {
     Query:{
         async getAllUsers(obj){
@@ -19,7 +22,7 @@ const userResolver = {
                 err:true,
                 message: 'Missign fields'
             }
-            
+            input.password = await ncryptPassword(input.password)
             try{
                 const newUser = new UserModel(input)
                 console.log("TCL: signUp -> newUser", newUser)

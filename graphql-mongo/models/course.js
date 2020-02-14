@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 const { Schema } = mongoose
-
 /**
  * Relacion de cursos y usuarios (alumno)
  * 
@@ -16,7 +15,11 @@ const { Schema } = mongoose
 
 const courseSchema = new Schema({
     title:String,
-    views:Number
+    views:Number,
+    users:[{
+        type : Schema.Types.ObjectId,
+        ref : 'User'
+    }]
 })
 
 module.exports = mongoose.model('Course',courseSchema)

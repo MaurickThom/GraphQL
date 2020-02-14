@@ -1,8 +1,10 @@
 const express = require('express'),
     mongoose = require('mongoose') // es un ODM (Object Data Model)
 
-const { graphqlExpress,graphiqlExpress } = require('graphql-server-express')
-const { makeExecutableSchema } = require('graphql-tools')
+// const { graphqlExpress,graphiqlExpress } = require('graphql-server-express')
+
+const { ApolloServer } = require('apollo-server-express')
+// const { makeExecutableSchema } = require('graphql-tools')
 
 const { merge } = require('lodash')
 
@@ -36,14 +38,23 @@ const { courseResolver } = require('./resolvers/course.resolver')
 const { userResolver } = require('./resolvers/user.resolver')
 const serverResolver = {}
 
-const schema = makeExecutableSchema({
+// const schema = makeExecutableSchema({
+//     typeDefs:[typeDefs,courseTypes,userTypes],
+//     resolvers: merge(serverResolver,courseResolver,userResolver)
+// })
+
+app.use(express.json())
+
+const server = new ApolloServer({
     typeDefs:[typeDefs,courseTypes,userTypes],
     resolvers: merge(serverResolver,courseResolver,userResolver)
 })
 
-app.use(express.json())
-app.use('/api/graphql',graphqlExpress({ schema }))
-app.use('/api/graphiql',graphiqlExpress({ endpointURL:'/api/graphql'}))
+// app.use('/api/graphql',graphqlExpress({ schema }))
+// app.use('/api/graphiql',graphiqlExpress({ endpointURL:'/api/graphql'}))
 
+server.applyMiddleware({app})
 
 app.listen(8080,()=>console.log(`servidor iniciado`))
+
+// con apollo server => localhost:8080/graphql

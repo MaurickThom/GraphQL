@@ -46,17 +46,25 @@ const userResolver = {
                 err:true,
                 message: 'Missign fields'
             }
-            const user = await UserModel.find({email})
-            if(!user) return {
-                err:true,
-                message: "User not found"
-            }
-            if(!(await matchPassword(password,user.password)))
-                return {
-                    err:true,
-                    message: 'contraseña incorrecta'
-                }
+            // const user = await UserModel.find({email})
+            // if(!user) return {
+            //     err:true,
+            //     message: "User not found"
+            // }
+            // if(!(await matchPassword(password,user.password)))
+            //     return {
+            //         err:true,
+            //         message: 'contraseña incorrecta'
+            //     }
             // enviar el token
+            try{
+                const result = await UserModel.authenticate({email,password})
+                console.log("TCL: logIn -> result", result)
+                return result
+            }catch(err){
+                console.log("TCL: logIn -> err", err)
+                return err
+            }
         }
     },
     User:{

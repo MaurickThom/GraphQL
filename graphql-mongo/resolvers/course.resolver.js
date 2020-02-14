@@ -40,6 +40,14 @@ const courseResolver = {
         async deleteCourse(obj,{id}){
             const deletedCourse = await CourseModel.findByIdAndRemove(id)
             return 'Course removed'
+        },
+        async addUserToTheCourseList(obj,{idCourse,idUser}){
+            const updateCourse = await CourseModel.update({
+                id:idCourse
+            },{
+                $push :{ users: idUser}
+            })
+            return updateCourse
         }
     }      
 }

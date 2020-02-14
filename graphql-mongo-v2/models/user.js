@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose')
-const {encryptPassword} = require('./../utils/bcrypt')
+const { encryptPassword,matchPassword } = require('./../utils/bcrypt')
+
 
 const UserSchema = new Schema({
     email: String,
@@ -26,7 +27,7 @@ UserSchema.pre('validate',async function (){
         return
     try{
         // const hash = await bcrypt.hash(this.temporal_password,10)
-        const hast = await encryptPassword(this.temporal_password)
+        const hash = await encryptPassword(this.temporal_password)
         this.password = hash
     }catch(err){
         console.log("TCL: err", err)
@@ -34,7 +35,22 @@ UserSchema.pre('validate',async function (){
     }
 })
 
+UserSchema.statics.authenticate = async function ({email,password}){
+    try{
+        const user = await this.findOne({email})
+        if(!user) return {
+                err:true,
+                message: "User not found"
+            }
+        const result = await matchPassword(password,user.password)
 
+        return user
+
+    }catch(err){
+        throw new Error(err)
+    }
+
+}
 
 module.exports = model('User',UserSchema)
 

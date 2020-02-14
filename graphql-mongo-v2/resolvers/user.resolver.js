@@ -22,9 +22,13 @@ const userResolver = {
                 err:true,
                 message: 'Missign fields'
             }
-            input.password = await ncryptPassword(input.password)
+            // input.password = await encryptPassword(input.password)
             try{
-                const newUser = new UserModel(input)
+                // const newUser = new UserModel(input)
+                const newUser = new UserModel({
+                    email,
+                    temporal_password:password
+                })
                 console.log("TCL: signUp -> newUser", newUser)
                 await newUser.save()
                 return newUser
@@ -35,6 +39,24 @@ const userResolver = {
                 }
             }
             
+        },
+        async logIn(obj,{input}){
+            const { email,password } = input
+            if(!email || !password) return {
+                err:true,
+                message: 'Missign fields'
+            }
+            const user = await UserModel.find({email})
+            if(!user) return {
+                err:true,
+                message: "User not found"
+            }
+            if(!(await matchPassword(password,user.password)))
+                return {
+                    err:true,
+                    message: 'contraseña incorrecta'
+                }
+            // enviar el token
         }
     },
     User:{

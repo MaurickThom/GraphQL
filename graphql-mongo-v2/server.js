@@ -45,9 +45,12 @@ const serverResolver = {}
 
 app.use(express.json())
 
+const AuthFunction = require('./utils/auth.js')
+
 const server = new ApolloServer({
     typeDefs:[typeDefs,courseTypes,userTypes],
-    resolvers: merge(serverResolver,courseResolver,userResolver)
+    resolvers: merge(serverResolver,courseResolver,userResolver),
+    context: AuthFunction
 })
 
 // app.use('/api/graphql',graphqlExpress({ schema }))

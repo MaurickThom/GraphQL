@@ -49,7 +49,7 @@ UserSchema.statics.authenticate = async function ({email,password}){
 
         // jwt
 
-        user.token = JWT.sign({ id:user.id },process.env.SECRET_KEY)
+        user.token = JWT.sign({ id:user.id ,email:user.email},process.env.SECRET_KEY)
         await user.save()
         return user
 

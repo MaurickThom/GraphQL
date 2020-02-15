@@ -27,6 +27,15 @@ mediante el query de graphql que datos quiere obtener.
 
 Al querer aprender mas sobre esta tecnología he encontrado muchos post y videos de personas comentando que graphql reemplazará a los servicios REST , y otro diciendo que cada uno tiene un objetivo diferente , y otros en la cual yo me siento identificado es que los dos se pueden complementar muy bien en todos los problemas donde tenga que ver el consumo de servicios REST.
 
+## **Conclusiones**
+
+**¿ Cuando usar GraphQL ?**
+Si tenemos mas de un cliente (entiense a cliente como los tipos de dispositivos web,movil,servidores,etc)
+Si tenemos muchos servicios (microservicios , distintas base de datos, muchos backend,etc)
+
+**¿ Cuando no usar GraphQL ?**
+API REST existente con cliente muy simple (ojo tambien se puede agregar una capa de graphql a este API REST)
+
 ## **Fuentes y/o Recursos**
 
 - [GraphQL - 1](https://medium.com/@jmz12/que-es-graphql-bf835e55960)

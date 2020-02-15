@@ -3,7 +3,9 @@ const { Schema:{Types:{ObjectId}} } = require('mongoose')
 const UserModel = require('../models/course')
 const courseResolver = {
     Query:{
-        async getAllCourses(obj,{page,limit}){
+        async getAllCourses(obj,{page,limit},context){
+            if(!context || !context.currentUser) 
+                throw new Error("Sin autorizacion")
             if(!limit && !page)
                 return await CourseModel.find() //.populate('user')
             page = page || 1
@@ -13,7 +15,9 @@ const courseResolver = {
                                     .skip(start)
                                     .limit(limit)
         },
-        async getCourseById(obj,{id}){
+        async getCourseById(obj,{id},context){
+            if(!context || !context.currentUser) 
+                throw new Error("Sin autorizacion")
             // const course = courses.find(course=>course.id === id)
             const course = await CourseModel.findById(id) //.populate('user')
             if(!course) return {
@@ -25,7 +29,9 @@ const courseResolver = {
         }
     },
     Mutation:{
-        async addCourse(obj,{title,views,user}){
+        async addCourse(obj,{title,views,user},context){
+            if(!context || !context.currentUser) 
+                throw new Error("Sin autorizacion")
             const course = {
                 title,
                 views,
@@ -38,11 +44,15 @@ const courseResolver = {
             await userObj.save()
             return newCourse
         },
-        async updateCourse(obj,{id,courseInput}){
+        async updateCourse(obj,{id,courseInput},context){
+            if(!context || !context.currentUser) 
+                throw new Error("Sin autorizacion")
             const updatedCourse = await CourseModel.findByIdAndUpdate(id,{...courseInput})
             return updatedCourse
         },
-        async deleteCourse(obj,{id}){
+        async deleteCourse(obj,{id},context){
+            if(!context || !context.currentUser) 
+                throw new Error("Sin autorizacion")
             const deletedCourse = await CourseModel.findByIdAndRemove(id)
             return 'Course removed'
         }

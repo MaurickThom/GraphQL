@@ -10,7 +10,7 @@ module.exports = async function({ req }){
     const decodedInfo = JWT.verify(token,process.env.SECRET_KEY)
     if(token && decodedInfo){
         currentUser = await UserModel.findById(decodedInfo.id)
-        if(!currentUser) throw new Error('Ivalid Token')
+        if(!currentUser) throw new Error('Invalid Token')
     }
     return {
         token,
